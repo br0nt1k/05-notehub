@@ -3,7 +3,7 @@ import NoteList from "../NoteList/NoteList";
 import css from "./App.module.css";
 import Pagination from "../Pagination/Pagination";
 import SearchBox from "../SearchBox/SearchBox";
-import NoteModal from "../NoteModal/NoteModal";
+import NoteModal from "../Modal/Modal";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { fetchNotes } from "../../services/noteService";
 import { useDebounce } from "use-debounce";
