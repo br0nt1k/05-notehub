@@ -3,8 +3,9 @@ import NoteList from "../NoteList/NoteList";
 import css from "./App.module.css";
 import Pagination from "../Pagination/Pagination";
 import SearchBox from "../SearchBox/SearchBox";
-import NoteModal from "../Modal/Modal";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import Modal from "../Modal/Modal";      // універсальна модалка
+import NoteForm from "../NoteForm/NoteForm";
+import { useQuery } from "@tanstack/react-query";
 import { fetchNotes } from "../../services/noteService";
 import { useDebounce } from "use-debounce";
 
@@ -17,7 +18,7 @@ export default function App() {
   const { data } = useQuery({
     queryKey: ["notes", debouncedSearchQuery, currentPage],
     queryFn: () => fetchNotes(debouncedSearchQuery || "", currentPage),
-    placeholderData: keepPreviousData,
+    placeholderData: (previousData) => previousData,
   });
 
   const handleSearch = (query: string) => {
@@ -25,13 +26,8 @@ export default function App() {
     setCurrentPage(1);
   };
 
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   const notes = data?.notes;
 
@@ -50,8 +46,15 @@ export default function App() {
           Create note +
         </button>
       </header>
+
       {notes && notes.length > 0 && <NoteList notes={notes} />}
-      {isModalOpen && <NoteModal onClose={closeModal} />}
+
+      {isModalOpen && (
+        <Modal onClose={closeModal}>
+          {}
+          <NoteForm onClose={closeModal} />
+        </Modal>
+      )}
     </div>
   );
 }
