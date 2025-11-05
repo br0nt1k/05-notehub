@@ -3,7 +3,7 @@ import NoteList from "../NoteList/NoteList";
 import css from "./App.module.css";
 import Pagination from "../Pagination/Pagination";
 import SearchBox from "../SearchBox/SearchBox";
-import Modal from "../Modal/Modal";      // універсальна модалка
+import Modal from "../Modal/Modal";      
 import NoteForm from "../NoteForm/NoteForm";
 import { useQuery } from "@tanstack/react-query";
 import { fetchNotes } from "../../services/noteService";
